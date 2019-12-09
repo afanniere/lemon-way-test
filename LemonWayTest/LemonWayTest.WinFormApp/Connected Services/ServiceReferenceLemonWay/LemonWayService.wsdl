@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Fibonacci">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="n" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FibonacciResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FibonacciResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FibonacciWithSleep">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="n" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sleep" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FibonacciWithSleepResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FibonacciWithSleepResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlToJson">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlToJsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XmlToJsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FibonacciSoapIn">
+    <wsdl:part name="parameters" element="tns:Fibonacci" />
+  </wsdl:message>
+  <wsdl:message name="FibonacciSoapOut">
+    <wsdl:part name="parameters" element="tns:FibonacciResponse" />
+  </wsdl:message>
+  <wsdl:message name="FibonacciWithSleepSoapIn">
+    <wsdl:part name="parameters" element="tns:FibonacciWithSleep" />
+  </wsdl:message>
+  <wsdl:message name="FibonacciWithSleepSoapOut">
+    <wsdl:part name="parameters" element="tns:FibonacciWithSleepResponse" />
+  </wsdl:message>
+  <wsdl:message name="XmlToJsonSoapIn">
+    <wsdl:part name="parameters" element="tns:XmlToJson" />
+  </wsdl:message>
+  <wsdl:message name="XmlToJsonSoapOut">
+    <wsdl:part name="parameters" element="tns:XmlToJsonResponse" />
+  </wsdl:message>
+  <wsdl:portType name="LemonWayServiceSoap">
+    <wsdl:operation name="Fibonacci">
+      <wsdl:input message="tns:FibonacciSoapIn" />
+      <wsdl:output message="tns:FibonacciSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FibonacciWithSleep">
+      <wsdl:input message="tns:FibonacciWithSleepSoapIn" />
+      <wsdl:output message="tns:FibonacciWithSleepSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlToJson">
+      <wsdl:input message="tns:XmlToJsonSoapIn" />
+      <wsdl:output message="tns:XmlToJsonSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LemonWayServiceSoap" type="tns:LemonWayServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Fibonacci">
+      <soap:operation soapAction="http://tempuri.org/Fibonacci" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FibonacciWithSleep">
+      <soap:operation soapAction="http://tempuri.org/FibonacciWithSleep" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlToJson">
+      <soap:operation soapAction="http://tempuri.org/XmlToJson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LemonWayServiceSoap12" type="tns:LemonWayServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Fibonacci">
+      <soap12:operation soapAction="http://tempuri.org/Fibonacci" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FibonacciWithSleep">
+      <soap12:operation soapAction="http://tempuri.org/FibonacciWithSleep" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlToJson">
+      <soap12:operation soapAction="http://tempuri.org/XmlToJson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LemonWayService">
+    <wsdl:port name="LemonWayServiceSoap" binding="tns:LemonWayServiceSoap">
+      <soap:address location="https://localhost:44369/Service/LemonWayService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="LemonWayServiceSoap12" binding="tns:LemonWayServiceSoap12">
+      <soap12:address location="https://localhost:44369/Service/LemonWayService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

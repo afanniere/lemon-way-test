@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using LemonWayTest.Consumer.ServiceReferenceLemonWay;
 using log4net;
 
 namespace LemonWayTest.Consumer
@@ -13,50 +14,33 @@ namespace LemonWayTest.Consumer
     class Program
     {
         private static ILog log;
-        private static string localUrl;
-        private static string resource;
-        private static string query;
 
         private static void Init()
         {
             log4net.Config.XmlConfigurator.Configure();
             log = LogManager.GetLogger("LemonWayTest.Consumer");
-
-            localUrl = ConfigurationManager.AppSettings["ApiUrl"];
-            resource = ConfigurationManager.AppSettings["ResourceUrl"];
-            query = ConfigurationManager.AppSettings["Query"];
         }
 
         static void Main(string[] args)
         {
-            Init();
             try
             {
-                log.Info($"Creating WebRequest on url : {localUrl}{resource}{query}");
-                WebRequest request = WebRequest.Create($"{localUrl}{resource}{query}");
-                request.Method = "GET";
+                Init();
+                log.Info("Calling Fibonacci(10)...");
+                LemonWayServiceSoapClient lemonWayServiceSoap = new LemonWayServiceSoapClient();
+                int result = lemonWayServiceSoap.Fibonacci(10);
 
-                log.Info("Calling...");
-                WebResponse response = request.GetResponse();
-                log.Info("Response received !");
-                string responseContent = null;
-                using (Stream data = response.GetResponseStream())
-                {
-                    using (StreamReader reader = new StreamReader(data))
-                    {
-                        responseContent = reader.ReadToEnd();
-                    }
-                }
-
-                log.Info($"Response content: {responseContent}");
+                log.Info($"Result : {result}");
             }
             catch (Exception e)
             {
                 log.Error($"An error happened: {e.ToString()}");
             }
-
-            Console.WriteLine("Press any key to exit...");
-            Console.Read();
+            finally
+            {
+                Console.WriteLine("Press any key to exit...");
+                Console.Read();
+            }
         }
     }
 }
